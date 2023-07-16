@@ -98,8 +98,10 @@ export default function Form(props: FormProps) {
                   {item.tasks.map((set) => {
                     return (
                       <div key={set.id}>
-                        {set.name} - {set.reps ? set.reps : `${set.duration}`}{" "}
-                        for {set.sets} sets
+                        <p>
+                          {set.name} - {set.reps ? set.reps : `${set.duration}`}{" "}
+                          for {set.sets === 1 ? "1 set" : `${set.sets} sets`}
+                        </p>
                       </div>
                     )
                   })}

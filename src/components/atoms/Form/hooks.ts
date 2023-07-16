@@ -1,4 +1,6 @@
+import { createPlan } from "@/services/hasura"
 import { useState } from "react"
+import { generateSlug } from "random-word-slugs"
 
 export interface TaskProps {
   name: string
@@ -36,6 +38,29 @@ const useForm = () => {
 
     setPlan(JSON.parse(result.result.content))
     setIsLoading(false)
+
+    await submitWorkoutPlan()
+  }
+
+  const submitWorkoutPlan = async () => {
+    const uuid = self.crypto.randomUUID()
+    const slug = generateSlug()
+    console.log(uuid, slug)
+
+    const response = await createPlan(
+      caloriesIn,
+      calorieTarget,
+      freeTime,
+      JSON.stringify(plan),
+      plan?.summary,
+      currentWeight,
+      uuid,
+      `/${slug}`
+    )
+
+    console.log(response)
+
+    return response
   }
 
   return {
